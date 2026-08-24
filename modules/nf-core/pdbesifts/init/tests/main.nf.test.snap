@@ -1,0 +1,36 @@
+{
+    "sifts - init - stub": {
+        "content": [
+            {
+                "sifts_config": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        [
+                            [
+                                [
+                                    "config.yaml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                                    "uniprot_pdb.duckdb:md5,d41d8cd98f00b204e9800998ecf8427e",
+                                    "uniprot_pdb.tsv.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                                ]
+                            ]
+                        ]
+                    ]
+                ],
+                "versions_pdbesifts": [
+                    [
+                        "PDBESIFTS_INIT",
+                        "pdbe_sifts",
+                        "1.0"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-08-24T14:42:30.853974",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    }
+}

@@ -1,0 +1,94 @@
+name: "pdbesifts_init"
+description: Initialise PDBe-SIFTS configuration and cache state before database building or sequence search
+keywords:
+  - sifts
+  - pdbe
+  - pdb
+  - taxonomy
+  - config
+  - init
+tools:
+  - "pdbe_sifts":
+      description: "Python package to run the SIFTS (Structure Integration with Function, Taxonomy and Sequences) pipeline locally."
+      homepage: "https://github.com/PDBeurope/SIFTS"
+      documentation: "https://github.com/PDBeurope/SIFTS/blob/master/docs/cli.md"
+      tool_dev_url: "https://github.com/PDBeurope/SIFTS"
+      doi: "no DOI available"
+      licence:
+        - "Apache-2.0"
+      identifier: ""
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing information for the config/cache to initialise
+        e.g. `[ id:'sifts' ]`
+
+output:
+  sifts_config:
+    - - meta:
+          type: map
+          description: |
+            Groovy Map containing information for the config/cache to initialise
+            e.g. `[ id:'sifts' ]`
+      - ${prefix}:
+          type: directory
+          description: |
+            HOME directory for this PDBe-SIFTS run, containing config.yaml, the UniProt-PDB
+            cross-reference cache (uniprot_pdb.tsv.gz, uniprot_pdb.duckdb) under
+            ${prefix}/.config/pdbe_sifts/, and the NCBI taxonomy cache used by later steps.
+            Downstream pdbe_sifts steps must set HOME to (a staged copy of) this directory
+            to pick up the generated config and caches.
+          pattern: "${prefix}"
+  versions_pdbesifts:
+    - - ${task.process}:
+          type: string
+          description: The name of the process
+      - pdbe_sifts:
+          type: string
+          description: The name of the tool
+      - "python -m pip show pdbe_sifts | sed -n 's/^Version: //p'":
+          type: eval
+          description: The expression to obtain the version of the tool
+
+topics:
+  versions:
+    - - ${task.process}:
+          type: string
+          description: The name of the process
+      - pdbe_sifts:
+          type: string
+          description: The name of the tool
+      - "python -m pip show pdbe_sifts | sed -n 's/^Version: //p'":
+          type: eval
+          description: The expression to obtain the version of the tool
+
+authors:
+  - "@npechl"
+maintainers:
+  - "@npechl"
+containers:
+  docker:
+    linux/amd64:
+      name: community.wave.seqera.io/library/c-compiler_pip_python_pdbe-sifts:afd1ce0583b7dd3e
+      build_id: bd-afd1ce0583b7dd3e_1
+      scan_id: sc-02f4c732b46e8e39_1
+    linux/arm64:
+      name: community.wave.seqera.io/library/c-compiler_pip_python_pdbe-sifts:7473304267e4bfe6
+      build_id: bd-7473304267e4bfe6_1
+      scan_id: sc-4bd8a0b6aa2be24d_1
+  singularity:
+    linux/amd64:
+      name: oras://community.wave.seqera.io/library/c-compiler_pip_python_pdbe-sifts:76a00df341a14d14
+      build_id: bd-76a00df341a14d14_1
+      https: https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/1c/1c83c25847b04ed869435ab1c9206ba9ecbf7edf4be1358722af463f4ca5364c/data
+    linux/arm64:
+      name: oras://community.wave.seqera.io/library/c-compiler_pip_python_pdbe-sifts:c4feeeab37e7575a
+      build_id: bd-c4feeeab37e7575a_1
+      https: https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/3a/3a792af872b65d1fface0d44c71b40807b2986de55c229f7d745a7f65bcd1f06/data
+  conda:
+    linux/amd64:
+      lock_file: modules/nf-core/pdbesifts/init/.conda-lock/linux_amd64-bd-afd1ce0583b7dd3e_1.txt
+    linux/arm64:
+      lock_file: modules/nf-core/pdbesifts/init/.conda-lock/linux_arm64-bd-7473304267e4bfe6_1.txt

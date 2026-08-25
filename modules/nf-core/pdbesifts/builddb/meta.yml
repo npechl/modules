@@ -1,0 +1,87 @@
+name: "pdbesifts_builddb"
+description: Build an MMseqs2 or BLAST reference sequence database from a FASTA file for PDBe-SIFTS sequence matching
+keywords:
+  - sifts
+  - pdbe
+  - pdb
+  - database
+  - mmseqs2
+  - blast
+tools:
+  - "pdbe_sifts":
+      description: "Python package to run the SIFTS (Structure Integration with Function, Taxonomy and Sequences) pipeline locally."
+      homepage: "https://github.com/PDBeurope/SIFTS"
+      documentation: "https://github.com/PDBeurope/SIFTS/blob/master/docs/cli.md"
+      tool_dev_url: "https://github.com/PDBeurope/SIFTS"
+      doi: "no DOI available"
+      licence: ["Apache-2.0"]
+      identifier: ""
+
+input:
+  - - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information
+          e.g. `[ id:'test' ]`
+    - fasta:
+        type: file
+        description: Reference FASTA file containing at least one sequence. May be gzip-compressed when building an MMseqs2 database.
+        pattern: "*.{fasta,fa,faa,fasta.gz,fa.gz,faa.gz}"
+        ontologies:
+          - edam: "http://edamontology.org/format_1929" # FASTA
+    - tax_mapping:
+        type: file
+        description: Headerless TSV mapping each FASTA sequence identifier to an NCBI taxonomy ID (columns sequence_id, tax_id)
+        pattern: "*.{tsv,txt}"
+
+output:
+  db:
+    - - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. `[ id:'test' ]`
+      - "${prefix}":
+          type: directory
+          description: Directory containing the reference sequence database (MMseqs2 database files by default, or a BLAST protein database when built with `--tool blastp`)
+          pattern: "${prefix}"
+  versions_pdbesifts:
+    - - "${task.process}":
+          type: string
+          description: The name of the process
+      - "pdbe_sifts":
+          type: string
+          description: The name of the tool
+      - "python -m pip show pdbe_sifts | sed -n 's/^Version: //p'":
+          type: eval
+          description: The expression to obtain the version of the tool
+
+topics:
+  versions:
+    - - ${task.process}:
+          type: string
+          description: The name of the process
+      - pdbe_sifts:
+          type: string
+          description: The name of the tool
+      - "python -m pip show pdbe_sifts | sed -n 's/^Version: //p'":
+          type: eval
+          description: The expression to obtain the version of the tool
+authors:
+  - "@npechl"
+maintainers:
+  - "@npechl"
+containers:
+  docker:
+    linux/amd64:
+      name: community.wave.seqera.io/library/blast_c-compiler_pip_python_pdbe-sifts:2d4158afbac1e6b5
+      build_id: bd-2d4158afbac1e6b5_1
+      scan_id: sc-c5619ae141782d74_1
+  singularity:
+    linux/amd64:
+      name: oras://community.wave.seqera.io/library/blast_c-compiler_pip_python_pdbe-sifts:38da82e68a15f3fb
+      build_id: bd-38da82e68a15f3fb_1
+      https: https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/12/129917d531daf4bb6dff9b7610e141942b15d004c043f5c7609b863fd6f05449/data
+  conda:
+    linux/amd64:
+      lock_file: modules/nf-core/pdbesifts/builddb/.conda-lock/linux_amd64-bd-2d4158afbac1e6b5_1.txt

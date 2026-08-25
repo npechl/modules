@@ -1,0 +1,111 @@
+nextflow_process {
+
+    name "Test Process PDBESIFTS_BUILDDB"
+    script "../main.nf"
+    process "PDBESIFTS_BUILDDB"
+    config './nextflow.config'
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "pdbesifts"
+    tag "pdbesifts/builddb"
+
+    test("sifts - builddb - mmseqs") {
+
+        when {
+            params {
+                module_args = ''
+            }
+            process {
+                """
+                def fasta_file = new File('test.fasta')
+                fasta_file.text = '>seq1\\nMSEQVENCEAAAA\\n>seq2\\nMSEQVENCEBBBB\\n'
+
+                def tax_mapping_file = new File('tax_mapping.tsv')
+                tax_mapping_file.text = 'seq1\\t9606\\nseq2\\t10090\\n'
+
+                input[0] = [
+                    [ id:'test' ],
+                    fasta_file.toPath(),
+                    tax_mapping_file.toPath()
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(sanitizeOutput(process.out)).match() }
+            )
+        }
+
+    }
+
+    test("sifts - builddb - blastp") {
+
+        when {
+            params {
+                module_args = '--tool blastp'
+            }
+            process {
+                """
+                def fasta_file = new File('test.fasta')
+                fasta_file.text = '>seq1\\nMSEQVENCEAAAA\\n>seq2\\nMSEQVENCEBBBB\\n'
+
+                def tax_mapping_file = new File('tax_mapping.tsv')
+                tax_mapping_file.text = 'seq1\\t9606\\nseq2\\t10090\\n'
+
+                input[0] = [
+                    [ id:'test' ],
+                    fasta_file.toPath(),
+                    tax_mapping_file.toPath()
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(sanitizeOutput(process.out)).match() }
+            )
+        }
+
+    }
+
+    test("sifts - builddb - mmseqs - stub") {
+
+        options "-stub"
+
+        when {
+            params {
+                module_args = ''
+            }
+            process {
+                """
+                def fasta_file = new File('test.fasta')
+                fasta_file.text = '>seq1\\nMSEQVENCEAAAA\\n>seq2\\nMSEQVENCEBBBB\\n'
+
+                def tax_mapping_file = new File('tax_mapping.tsv')
+                tax_mapping_file.text = 'seq1\\t9606\\nseq2\\t10090\\n'
+
+                input[0] = [
+                    [ id:'test' ],
+                    fasta_file.toPath(),
+                    tax_mapping_file.toPath()
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(sanitizeOutput(process.out)).match() }
+            )
+        }
+
+    }
+
+}

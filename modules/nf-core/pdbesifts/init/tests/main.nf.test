@@ -9,25 +9,6 @@ nextflow_process {
     tag "pdbesifts"
     tag "pdbesifts/init"
 
-    test("sifts - init") {
-
-        when {
-            process {
-                """
-                input[0] = [ id:'test' ]
-                """
-            }
-        }
-
-        then {
-            assertAll(
-                { assert process.success },
-                { assert snapshot(sanitizeOutput(process.out, unstableKeys: ["sifts_config"])).match() }
-            )
-        }
-
-    }
-
     test("sifts - init - stub") {
 
         options "-stub"

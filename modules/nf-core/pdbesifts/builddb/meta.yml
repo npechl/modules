@@ -74,14 +74,14 @@ maintainers:
 containers:
   docker:
     linux/amd64:
-      name: community.wave.seqera.io/library/blast_c-compiler_pip_python_pdbe-sifts:2d4158afbac1e6b5
-      build_id: bd-2d4158afbac1e6b5_1
-      scan_id: sc-c5619ae141782d74_1
+      name: community.wave.seqera.io/library/blast_mmseqs2_c-compiler_pip_pruned:f0136bed7613f457
+      build_id: bd-f0136bed7613f457_1
+      scan_id: sc-3f738b8b36723096_1
   singularity:
     linux/amd64:
-      name: oras://community.wave.seqera.io/library/blast_c-compiler_pip_python_pdbe-sifts:38da82e68a15f3fb
-      build_id: bd-38da82e68a15f3fb_1
-      https: https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/12/129917d531daf4bb6dff9b7610e141942b15d004c043f5c7609b863fd6f05449/data
+      name: oras://community.wave.seqera.io/library/blast_mmseqs2_c-compiler_pip_pruned:7087450a6f3ab16b
+      build_id: bd-7087450a6f3ab16b_1
+      https: https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/00/00bfe5269a959dbc72993abaa314164cf1e720d56769ff438adcae89155eab8a/data
   conda:
     linux/amd64:
-      lock_file: modules/nf-core/pdbesifts/builddb/.conda-lock/linux_amd64-bd-2d4158afbac1e6b5_1.txt
+      lock_file: modules/nf-core/pdbesifts/builddb/.conda-lock/linux_amd64-bd-f0136bed7613f457_1.txt

@@ -34,26 +34,29 @@
     },
     "sifts - builddb - blastp": {
         "content": [
+            [
+                "test.pdb",
+                "test.phr",
+                "test.pin",
+                "test.pjs",
+                "test.pog",
+                "test.pos",
+                "test.pot",
+                "test.psq",
+                "test.ptf",
+                "test.pto"
+            ],
+            [
+                "test.pdb:md5,060ede916231fe12b0bf67000cb8e93b",
+                "test.phr:md5,84efb9179b0b28144ce1ba811e7c1e1e",
+                "test.pog:md5,fff5b0fab930b3ad6237334b0b673d84",
+                "test.pos:md5,e0ba3676b46c2e30fde6ab7053aa627c",
+                "test.pot:md5,2c847a813cdc9218619cdfc6a7726664",
+                "test.psq:md5,c9766043d8a275b88ef70a929fd3abf4",
+                "test.ptf:md5,46f87c04019824f99045c4b54f0f2b3d",
+                "test.pto:md5,f6e3a9205730eee6c41417da4f970bd5"
+            ],
             {
-                "db": [
-                    [
-                        {
-                            "id": "test"
-                        },
-                        [
-                            "test.pdb:md5,060ede916231fe12b0bf67000cb8e93b",
-                            "test.phr:md5,84efb9179b0b28144ce1ba811e7c1e1e",
-                            "test.pin:md5,985e8f8c86604db63c66b5c1b0799dd6",
-                            "test.pjs:md5,1184961c2ea1977d69024fd2bf56c6fa",
-                            "test.pog:md5,fff5b0fab930b3ad6237334b0b673d84",
-                            "test.pos:md5,e0ba3676b46c2e30fde6ab7053aa627c",
-                            "test.pot:md5,2c847a813cdc9218619cdfc6a7726664",
-                            "test.psq:md5,c9766043d8a275b88ef70a929fd3abf4",
-                            "test.ptf:md5,46f87c04019824f99045c4b54f0f2b3d",
-                            "test.pto:md5,f6e3a9205730eee6c41417da4f970bd5"
-                        ]
-                    ]
-                ],
                 "versions_pdbesifts": [
                     [
                         "PDBESIFTS_BUILDDB",
@@ -63,7 +66,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-08-25T10:26:21.998298",
+        "timestamp": "2026-09-01T11:22:50.175514",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"

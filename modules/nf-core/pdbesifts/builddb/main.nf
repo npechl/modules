@@ -4,8 +4,8 @@ process PDBESIFTS_BUILDDB {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine in ['singularity', 'apptainer'] && !task.ext.singularity_pull_docker_container
-?         'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/12/129917d531daf4bb6dff9b7610e141942b15d004c043f5c7609b863fd6f05449/data'
-:         'community.wave.seqera.io/library/blast_c-compiler_pip_python_pdbe-sifts:2d4158afbac1e6b5' }"
+?         'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/00/00bfe5269a959dbc72993abaa314164cf1e720d56769ff438adcae89155eab8a/data'
+:         'community.wave.seqera.io/library/blast_mmseqs2_c-compiler_pip_pruned:f0136bed7613f457' }"
 
     input:
     tuple val(meta), path(fasta), path(tax_mapping)

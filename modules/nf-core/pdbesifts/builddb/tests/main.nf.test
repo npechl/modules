@@ -68,7 +68,19 @@ nextflow_process {
         then {
             assertAll(
                 { assert process.success },
-                { assert snapshot(sanitizeOutput(process.out)).match() }
+                {
+                    def all_files = ( new File(process.out.db[0][1]) ).listFiles()
+                    // makeblastdb embeds the absolute input path and a build timestamp in
+                    // .pin/.pjs, so their content differs on every run: name-check only.
+                    def unstable_file_names = [ 'test.pin', 'test.pjs' ]
+                    def stable_files = all_files.findAll { !(it.name in unstable_file_names) }.toSorted()
+
+                    assert snapshot(
+                        all_files.collect { it.name }.toSorted(),
+                        stable_files,
+                        process.out.findAll { key, val -> key.startsWith("versions") }
+                    ).match()
+                }
             )
         }
 

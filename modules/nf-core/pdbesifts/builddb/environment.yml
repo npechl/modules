@@ -5,6 +5,7 @@ channels:
   - bioconda
 dependencies:
   - bioconda::blast=2.17.0
+  - bioconda::mmseqs2=18.8cc5c
   - conda-forge::c-compiler=2.0.0
   - conda-forge::pip=25.1
   - conda-forge::python=3.12

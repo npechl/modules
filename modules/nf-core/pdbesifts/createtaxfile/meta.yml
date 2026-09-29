@@ -1,0 +1,76 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/modules/meta-schema.json
+name: "pdbesifts_createtaxfile"
+description: Create an accession-to-taxonomy ID mapping from the headers of a
+  UniProtKB FASTA file, for building a PDBe-SIFTS target database
+keywords:
+  - sifts
+  - pdbe
+  - uniprot
+  - taxonomy
+  - database
+  - proteomics
+tools:
+  - "pdbesifts":
+      description: "Python package to run SIFTS (Structure Integration with
+        Function, Taxonomy and Sequences) from EMBL-EBI locally"
+      homepage: "https://github.com/PDBeurope/SIFTS"
+      documentation: "https://github.com/PDBeurope/SIFTS/blob/main/docs/cli.md"
+      tool_dev_url: "https://github.com/PDBeurope/SIFTS"
+      licence:
+        - "Apache-2.0"
+      identifier: ""
+
+input:
+  - - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information
+          e.g. `[ id:'sample1' ]`
+    - fasta:
+        type: file
+        description: UniProtKB FASTA file with headers like
+          `>sp|ACCESSION|... OX=TAXID`
+        pattern: "*.{fasta,fa,faa,fasta.gz,fa.gz,faa.gz}"
+        ontologies:
+          - edam: "http://edamontology.org/format_1929" # FASTA
+
+output:
+  tax_mapping:
+    - - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. `[ id:'sample1' ]`
+      - "${prefix}.tsv":
+          type: file
+          description: Tab-separated mapping of UniProt accessions to NCBI
+            taxonomy IDs
+          pattern: "*.tsv"
+          ontologies:
+            - edam: "http://edamontology.org/format_3475" # TSV
+  versions_pdbesifts:
+    - - "${task.process}":
+          type: string
+          description: The name of the process
+      - "pdbe_sifts":
+          type: string
+          description: The name of the tool
+      - "pdbe_sifts --version | sed 's/pdbe_sifts //'":
+          type: eval
+          description: The expression to obtain the version of the tool
+
+topics:
+  versions:
+    - - ${task.process}:
+          type: string
+          description: The name of the process
+      - pdbe_sifts:
+          type: string
+          description: The name of the tool
+      - pdbe_sifts --version | sed 's/pdbe_sifts //':
+          type: eval
+          description: The expression to obtain the version of the tool
+authors:
+  - "@npechl"
+maintainers:
+  - "@npechl"

@@ -3,9 +3,9 @@ process PDBESIFTS_PREPAREBUILDDB {
     label 'process_single'
 
     conda "${moduleDir}/environment.yml"
-    container "${workflow.containerEngine in ['singularity', 'apptainer'] && !task.ext.singularity_pull_docker_container
-        ? 'https://depot.galaxyproject.org/singularity/YOUR-TOOL-HERE'
-        : 'quay.io/biocontainers/YOUR-TOOL-HERE'}"
+    container "${ workflow.containerEngine in ['singularity', 'apptainer'] && !task.ext.singularity_pull_docker_container
+        ? 'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/00/00bfe5269a959dbc72993abaa314164cf1e720d56769ff438adcae89155eab8a/data'
+        : 'community.wave.seqera.io/library/blast_mmseqs2_c-compiler_pip_pruned:f0136bed7613f457' }"
 
     input:
     tuple val(meta), path(fasta)
@@ -13,7 +13,7 @@ process PDBESIFTS_PREPAREBUILDDB {
     output:
     tuple val(meta), path("${prefix}.fasta.gz"), emit: fasta
     tuple val(meta), path("${prefix}.tsv"), emit: tax_mapping
-    tuple val("${task.process}"), val('pdbe_sifts'), eval("pdbe_sifts --version | sed 's/pdbe_sifts //'"), topic: versions, emit: versions_pdbesifts
+    tuple val("${task.process}"), val('pdbe_sifts'), eval("python -c \"import importlib.metadata; print(importlib.metadata.version('pdbe_sifts'))\""), topic: versions, emit: versions_pdbesifts
 
     when:
     task.ext.when == null || task.ext.when

@@ -14,7 +14,7 @@ tools:
       description: "Python package to run SIFTS (Structure Integration with
         Function, Taxonomy and Sequences) from EMBL-EBI locally"
       homepage: "https://github.com/PDBeurope/SIFTS"
-      documentation: "https://github.com/PDBeurope/SIFTS/blob/main/docs/cli.md"
+      documentation: "https://github.com/PDBeurope/SIFTS/blob/master/docs/cli.md#prepare_build_db"
       tool_dev_url: "https://github.com/PDBeurope/SIFTS"
       licence:
         - "Apache-2.0"
@@ -70,7 +70,7 @@ output:
       - "pdbe_sifts":
           type: string
           description: The name of the tool
-      - "pdbe_sifts --version | sed 's/pdbe_sifts //'":
+      - 'python -c "import importlib.metadata; print(importlib.metadata.version(''pdbe_sifts''))"':
           type: eval
           description: The expression to obtain the version of the tool
 
@@ -82,7 +82,7 @@ topics:
       - pdbe_sifts:
           type: string
           description: The name of the tool
-      - pdbe_sifts --version | sed 's/pdbe_sifts //':
+      - python -c "import importlib.metadata; print(importlib.metadata.version('pdbe_sifts'))":
           type: eval
           description: The expression to obtain the version of the tool
 authors:
